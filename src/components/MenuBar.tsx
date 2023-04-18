@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useCallback, useState } from "react";
+import React, { SyntheticEvent, useCallback, useEffect, useState } from "react";
 
 import { AppBar, Box, Button, Tab, Tabs, Toolbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -10,8 +10,14 @@ interface MenuBarProps {
 }
 export const MenuBar = ({ onOpenLogin }: MenuBarProps) => {
   const token = localStorage.getItem("token");
+  const [disableFavorite, setDisableFavorite] = useState<boolean>(true);
+
   const [page, setPage] = useState<Pages>(Pages.films);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    token ? setDisableFavorite(false) : setDisableFavorite(true);
+  }, [token]);
 
   const onChangePage = useCallback(
     (e: SyntheticEvent<Element, Event>, value: Pages) => {
@@ -27,7 +33,7 @@ export const MenuBar = ({ onOpenLogin }: MenuBarProps) => {
         <Box display="flex" justifyContent="space-between" width="100%">
           <Tabs value={page} onChange={onChangePage}>
             <Tab label="List of Films" value={Pages.films} />
-            <Tab disabled={!token} label="Favorite Films" value={Pages.favorite} />
+            <Tab disabled={disableFavorite} label="Favorite Films" value={Pages.favorite} />
           </Tabs>
           <Button color="inherit" onClick={onOpenLogin}>
             Login

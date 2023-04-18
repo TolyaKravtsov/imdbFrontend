@@ -7,14 +7,14 @@ import { LoginDialog } from "./components/LoginDialog";
 import { MenuBar } from "./components/MenuBar";
 
 export const App = () => {
-  const [login, setOpenLogin] = useState<boolean>(false);
-  const onOpenLogin = useCallback(() => setOpenLogin(true), []);
-  const onCloseLogin = useCallback(() => setOpenLogin(false), []);
+  const [openlogin, setOpenOpenlogin] = useState<boolean>(false);
+  const onOpenLogin = useCallback(() => setOpenOpenlogin(true), []);
+  const onCloseLogin = useCallback(() => setOpenOpenlogin(false), []);
 
   return (
     <Box height="100%" width="100%">
       <MenuBar onOpenLogin={onOpenLogin} />
-      <LoginDialog open={login} onCloseLogin={onCloseLogin} />
+      <LoginDialog open={openlogin} onCloseLogin={onCloseLogin} />
       <Outlet />
     </Box>
   );

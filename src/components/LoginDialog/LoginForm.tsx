@@ -25,9 +25,11 @@ export const LoginForm = ({ onClose }: LoginFormProps) => {
         })
         .catch(err => err)
         .then(data => {
-          localStorage.setItem("token", data.data.token);
+          if (data.status === 200) {
+            onClose();
+            localStorage.setItem("token", data.data.token);
+          }
         });
-      onClose();
     },
     [onClose],
   );
